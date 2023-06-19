@@ -139,7 +139,7 @@ function virtualenvwrapper_absolutepath {
     if [ "$1" = "" ]; then
         return 1
     else
-        "$VIRTUALENVWRAPPER_PYTHON" -c "import os,sys; sys.stdout.write(os.path.abspath(\"$1\")+'\n')"
+        echo "$(realpath $1)"
         return 0
     fi
 }
