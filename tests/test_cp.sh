@@ -26,7 +26,7 @@ test_new_env_activated () {
     (cd tests/testpackage && python setup.py install) >/dev/null 2>&1
     cpvirtualenv "source" "destination" >/dev/null 2>&1
     rmvirtualenv "source" >/dev/null 2>&1
-    testscript="$(which testscript.py)"
+    testscript="$(command -v testscript.py)"
     assertTrue "Environment test script not found in path" "[ $WORKON_HOME/destination/bin/testscript.py -ef $testscript ]"
     testscriptcontent="$(cat $testscript)"
     assertTrue "No cpvirtualenvtest in $testscriptcontent" "echo $testscriptcontent | grep cpvirtualenvtest"
