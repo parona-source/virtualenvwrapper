@@ -47,7 +47,7 @@
 # Locate the global Python where virtualenvwrapper is installed.
 if [ "${VIRTUALENVWRAPPER_PYTHON:-}" = "" ]
 then
-    _virtualenvwrapper_python_executable="$(which python3 2>/dev/null)"
+    _virtualenvwrapper_python_executable="$(command -v python3)"
     if [ -n "$_virtualenvwrapper_python_executable" ] && $_virtualenvwrapper_python_executable -m 'virtualenvwrapper.hook_loader' --help >/dev/null 2>&1
     then
         VIRTUALENVWRAPPER_PYTHON=$_virtualenvwrapper_python_executable
@@ -326,7 +326,13 @@ function virtualenvwrapper_initialize {
 
 # Verify that the passed resource is in path and exists
 function virtualenvwrapper_verify_resource {
-    typeset exe_path="$(command \which "$1" | (unset GREP_OPTIONS; command \grep -v "not found"))"
+    if [ -n "${ZSH_VERSION}" ]
+    then
+        typeset exe_path="$(whence -p "${1}")"
+    else
+        typeset exe_path="$(type -P "${1}")"
+    fi
+
     if [ "$exe_path" = "" ]
     then
         echo "ERROR: virtualenvwrapper could not find $1 in your path" >&2

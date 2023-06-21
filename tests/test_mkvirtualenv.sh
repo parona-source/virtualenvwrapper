@@ -68,11 +68,11 @@ GLOBAL postmkvirtualenv"
 }
 
 test_no_virtualenv () {
-	# Find "which" before we change the path
-	which=$(which which)
+	# Find "command" before we change the path
+	command=$(command -v command)
     old_path="$PATH"
     PATH="/bin:/usr/sbin:/sbin"
-    venv=$($which virtualenv 2>/dev/null)
+    venv=$($command -v virtualenv)
 	if [ ! -z "$venv" ]
 	then
         echo "FOUND \"$venv\" in PATH so skipping this test"
