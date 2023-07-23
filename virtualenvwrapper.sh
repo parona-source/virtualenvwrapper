@@ -47,7 +47,7 @@
 # Locate the global Python where virtualenvwrapper is installed.
 if [ "${VIRTUALENVWRAPPER_PYTHON:-}" = "" ]
 then
-    _virtualenvwrapper_python_executable="$(command -v python3)"
+    _virtualenvwrapper_python_executable="@@GENTOO_PYTHON_EXECUTABLE@@"
     if [ -n "$_virtualenvwrapper_python_executable" ] && $_virtualenvwrapper_python_executable -m 'virtualenvwrapper.hook_loader' --help >/dev/null 2>&1
     then
         VIRTUALENVWRAPPER_PYTHON=$_virtualenvwrapper_python_executable
